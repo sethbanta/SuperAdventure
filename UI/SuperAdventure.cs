@@ -18,15 +18,15 @@ namespace UI
         {
             InitializeComponent();
             _player = new Player();
-            _player.currentHitPoints = 10;
-            _player.maximumHitPoints = 20;
-            _player.gold = 20;
-            _player.experiencePoints = 0;
-            _player.level = 1;
-            lblHitPoints.Text = _player.currentHitPoints.ToString();
-            lblGold.Text = _player.gold.ToString();
-            lblExperience.Text = _player.experiencePoints.ToString();
-            lblLevel.Text = _player.level.ToString();
+            _player.CurrentHitPoints = 10;
+            _player.MaximumHitPoints = 20;
+            _player.Gold = 20;
+            _player.ExperiencePoints = 0;
+            _player.Level = 1;
+            lblHitPoints.Text = _player.CurrentHitPoints.ToString();
+            lblGold.Text = _player.Gold.ToString();
+            lblExperience.Text = _player.ExperiencePoints.ToString();
+            lblLevel.Text = _player.Level.ToString();
         }
 
         private void SuperAdventure_Load(object sender, EventArgs e)

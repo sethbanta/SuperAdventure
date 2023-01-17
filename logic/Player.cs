@@ -8,10 +8,10 @@ namespace logic
 {
     public class Player
     {
-        public int currentHitPoints { get; set; }
-        public int maximumHitPoints { get; set; }
-        public int gold { get; set; }
-        public int experiencePoints { get; set; }
-        public int level { get; set; }
+        public int CurrentHitPoints { get; set; }
+        public int MaximumHitPoints { get; set; }
+        public int Gold { get; set; }
+        public int ExperiencePoints { get; set; }
+        public int Level { get; set; }
     }
 }
