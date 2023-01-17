@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.33214.272
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperAdventure", "SuperAdventure\SuperAdventure.csproj", "{EA2E9FC7-C43F-4816-B21C-7AF5E9E309C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{035CB930-A94A-49A4-98B1-362468785215}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "logic", "logic\logic.csproj", "{0B824C03-61A7-4625-A6F8-52E0ECBB546D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EA2E9FC7-C43F-4816-B21C-7AF5E9E309C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA2E9FC7-C43F-4816-B21C-7AF5E9E309C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA2E9FC7-C43F-4816-B21C-7AF5E9E309C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA2E9FC7-C43F-4816-B21C-7AF5E9E309C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{035CB930-A94A-49A4-98B1-362468785215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{035CB930-A94A-49A4-98B1-362468785215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{035CB930-A94A-49A4-98B1-362468785215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{035CB930-A94A-49A4-98B1-362468785215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B824C03-61A7-4625-A6F8-52E0ECBB546D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B824C03-61A7-4625-A6F8-52E0ECBB546D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B824C03-61A7-4625-A6F8-52E0ECBB546D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B824C03-61A7-4625-A6F8-52E0ECBB546D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

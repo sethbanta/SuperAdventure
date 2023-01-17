@@ -1,0 +1,13 @@
+C:\Users\Seth\source\repos\SuperAdventure\UI\bin\Debug\UI.exe.config
+C:\Users\Seth\source\repos\SuperAdventure\UI\bin\Debug\UI.exe
+C:\Users\Seth\source\repos\SuperAdventure\UI\bin\Debug\UI.pdb
+C:\Users\Seth\source\repos\SuperAdventure\UI\bin\Debug\logic.dll
+C:\Users\Seth\source\repos\SuperAdventure\UI\bin\Debug\logic.pdb
+C:\Users\Seth\source\repos\SuperAdventure\UI\obj\Debug\UI.csproj.AssemblyReference.cache
+C:\Users\Seth\source\repos\SuperAdventure\UI\obj\Debug\UI.Properties.Resources.resources
+C:\Users\Seth\source\repos\SuperAdventure\UI\obj\Debug\UI.csproj.GenerateResource.cache
+C:\Users\Seth\source\repos\SuperAdventure\UI\obj\Debug\UI.csproj.CoreCompileInputs.cache
+C:\Users\Seth\source\repos\SuperAdventure\UI\obj\Debug\UI.csproj.CopyComplete
+C:\Users\Seth\source\repos\SuperAdventure\UI\obj\Debug\UI.exe
+C:\Users\Seth\source\repos\SuperAdventure\UI\obj\Debug\UI.pdb
+C:\Users\Seth\source\repos\SuperAdventure\UI\obj\Debug\UI.SuperAdventure.resources
