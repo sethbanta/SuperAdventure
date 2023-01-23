@@ -31,28 +31,11 @@ namespace UI
         //Function for allowing the player to move locations
         private void MoveTo(Location newLocation)
         {
-            if (newLocation.ItemRequiredToEnter != null)
+            if (!_player.HasRequiredItemToEnterThisLocation(newLocation))
             {
-                bool playerHasRequiredItem = false;
-
-                // Check what the player has
-                foreach (InventoryItem ii in _player.Inventory)
-                {
-                    // If we find the correct item
-                    if (ii.Details.ID == newLocation.ItemRequiredToEnter.ID)
-                    {
-                        //Correct item found
-                        playerHasRequiredItem = true;
-                        break; //exit the loop
-                    }
-                }
-
-                if (!playerHasRequiredItem)
-                {
-                    //Didn't find the correct item
-                    rtbMessages.Text += "You must have a " + newLocation.ItemRequiredToEnter + " to enter this location." + Environment.NewLine;
-                    return;
-                }
+                //Didn't find the correct item
+                rtbMessages.Text += "You must have a " + newLocation.ItemRequiredToEnter + " to enter this location." + Environment.NewLine;
+                return;
             }
 
             //Update the players location
@@ -74,58 +57,16 @@ namespace UI
             if (newLocation.QuestAvailableHere != null)
             {
                 // Does the player have the quest? Have they completed it?
-                bool playerAlreadyHasQuest = false;
-                bool playerAlreadyCompletedQuest = false;
-
-                foreach (PlayerQuest playerQuest in _player.Quests)
-                {
-                    if (playerQuest.Details.ID == newLocation.QuestAvailableHere.ID) //has the quest
-                    {
-                        playerAlreadyHasQuest = true;
-
-                        if (playerQuest.IsCompleted) //completed it
-                        {
-                            playerAlreadyCompletedQuest = true;
-                        }
-                    }
-                }
+                bool playerAlreadyHasQuest = _player.HasThisQuest(newLocation.QuestAvailableHere);
+                bool playerAlreadyCompletedQuest = _player.CompletedThisQuest(newLocation.QuestAvailableHere);
 
                 //Check if they have the quest
                 if (playerAlreadyHasQuest)
                 {
                     if (!playerAlreadyCompletedQuest)
                     {
-                        bool playerHasAllItemsToCompleteQuest = true;
+                        bool playerHasAllItemsToCompleteQuest = _player.HasAllQuestCompletionItems(newLocation.QuestAvailableHere);
 
-                        foreach (QuestCompletionItem qci in newLocation.QuestAvailableHere.QuestCompletionItems)
-                        {
-                            bool foundItemInPlayersInventory = false;
-
-                            foreach (InventoryItem ii in _player.Inventory)
-                            {
-                                // The player has the item
-                                if (ii.Details.ID == qci.Details.ID)
-                                {
-                                    foundItemInPlayersInventory = true;
-
-                                    if (ii.Quantity < qci.Quantity) // not enough items to complete quest
-                                    {
-                                        playerHasAllItemsToCompleteQuest = false;
-                                        break; //exit loop because they cant finish
-                                    }
-                                    //Found the item, dont need to check the rest of the inventory (if theres any left)
-                                    break;
-                                }
-                            }
-
-                            //Didn't find the item
-                            if (!foundItemInPlayersInventory)
-                            {
-                                //Couldn't find the item, stop
-                                playerHasAllItemsToCompleteQuest = false;
-                                break;
-                            }
-                        }
                         // if we found the item and they have enough
                         if (playerHasAllItemsToCompleteQuest)
                         {
@@ -133,18 +74,7 @@ namespace UI
                             rtbMessages.Text += Environment.NewLine;
                             rtbMessages.Text += "You complete the " + newLocation.QuestAvailableHere.Name + " quest." + Environment.NewLine;
                             //remove items
-                            foreach (QuestCompletionItem qci in newLocation.QuestAvailableHere.QuestCompletionItems)
-                            {
-                                foreach (InventoryItem ii in _player.Inventory)
-                                {
-                                    if (ii.Details.ID == qci.Details.ID)
-                                    {
-                                        //Subtract the amount of items the quest took
-                                        ii.Quantity -= qci.Quantity;
-                                        break;
-                                    }
-                                }
-                            }
+                            _player.RemoveQuestCompletionItems(newLocation.QuestAvailableHere);
                             //give rewards
                             rtbMessages.Text += "You receive " + Environment.NewLine;
                             rtbMessages.Text += newLocation.QuestAvailableHere.RewardExperiencePoints.ToString() + Environment.NewLine;
@@ -154,32 +84,8 @@ namespace UI
 
                             _player.ExperiencePoints += newLocation.QuestAvailableHere.RewardExperiencePoints;
                             _player.Gold += newLocation.QuestAvailableHere.RewardGold;
-
-                            bool addedItemToPlayerInventory = false;
-
-                            foreach (InventoryItem ii in _player.Inventory)
-                            {
-                                if (ii.Details.ID == newLocation.QuestAvailableHere.RewardItem.ID)
-                                {
-                                    ii.Quantity++; // they have the item already, so add one as a reward
-                                    addedItemToPlayerInventory = true;
-                                    break;
-                                }
-                            }
-
-                            if (!addedItemToPlayerInventory)
-                            {
-                                _player.Inventory.Add(new InventoryItem(newLocation.QuestAvailableHere.RewardItem, 1));
-                            }
-
-                            foreach (PlayerQuest pq in _player.Quests)
-                            {
-                                if (pq.Details.ID == newLocation.QuestAvailableHere.ID)
-                                {
-                                    pq.IsCompleted = true;
-                                    break;
-                                }
-                            }
+                            _player.AddItemToInventory(newLocation.QuestAvailableHere.RewardItem);
+                            _player.MarkQuestCompleted(newLocation.QuestAvailableHere);
                         }
                     }
                 }
@@ -236,6 +142,19 @@ namespace UI
                 btnUsePotion.Visible = false;
             }
 
+            //Refresh inventory
+            UpdateInventoryListInUI();
+            //Refresh players quest list
+            UpdateQuestListInUI();
+            //Refresh weapon combobox
+            UpdateWeaponListInUI();
+            //Refresh potion combobox
+            UpdatePotionListInUI();
+
+        }
+
+        public void UpdateInventoryListInUI()
+        {
             //Refresh players inventory list
             dgvInventory.RowHeadersVisible = false;
 
@@ -253,7 +172,10 @@ namespace UI
                     dgvInventory.Rows.Add(new[] { ii.Details.Name, ii.Quantity.ToString() });
                 }
             }
+        }
 
+        public void UpdateQuestListInUI()
+        {
             //Refresh players quest list
             dgvQuests.RowHeadersVisible = false;
 
@@ -268,22 +190,25 @@ namespace UI
             {
                 dgvQuests.Rows.Add(new[] { pq.Details.Name, pq.IsCompleted.ToString() });
             }
+        }
 
+        public void UpdateWeaponListInUI()
+        {
             //Refresh player's weapons combobox
             List<Weapon> weapons = new List<Weapon>();
 
-            foreach(InventoryItem ii in _player.Inventory)
+            foreach (InventoryItem ii in _player.Inventory)
             {
-                if(ii.Details is Weapon)
+                if (ii.Details is Weapon)
                 {
-                    if(ii.Quantity > 0)
+                    if (ii.Quantity > 0)
                     {
                         weapons.Add((Weapon)ii.Details);
                     }
                 }
             }
 
-            if(weapons.Count == 0)
+            if (weapons.Count == 0)
             {
                 //The player doesnt have weapons, hide the weapon combobox and the use button
                 cboWeapons.Visible = false;
@@ -297,22 +222,25 @@ namespace UI
 
                 cboWeapons.SelectedIndex = 0;
             }
+        }
 
+        public void UpdatePotionListInUI()
+        {
             //Refresh players potions combobox
             List<HealingPotion> healingPotions = new List<HealingPotion>();
 
-            foreach(InventoryItem ii in _player.Inventory)
+            foreach (InventoryItem ii in _player.Inventory)
             {
-                if(ii.Details is HealingPotion)
+                if (ii.Details is HealingPotion)
                 {
-                    if(ii.Quantity > 0)
+                    if (ii.Quantity > 0)
                     {
                         healingPotions.Add((HealingPotion)ii.Details);
                     }
                 }
             }
 
-            if(healingPotions.Count == 0)
+            if (healingPotions.Count == 0)
             {
                 //The player has no potions, hide the combobox and use button
                 cboPotions.Visible = false;
