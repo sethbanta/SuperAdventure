@@ -106,7 +106,7 @@ namespace UI
                             rtbMessages.Text += "You receive " + Environment.NewLine;
                             rtbMessages.Text += newLocation.QuestAvailableHere.RewardExperiencePoints.ToString() + Environment.NewLine;
                             rtbMessages.Text += newLocation.QuestAvailableHere.RewardGold.ToString() + Environment.NewLine;
-                            rtbMessages.Text += newLocation.QuestAvailableHere.RewardItem.ToString() + Environment.NewLine;
+                            rtbMessages.Text += newLocation.QuestAvailableHere.RewardItem.Name.ToString() + Environment.NewLine;
                             rtbMessages.Text += Environment.NewLine;
                             //give rewards
                             _player.ExperiencePoints += newLocation.QuestAvailableHere.RewardExperiencePoints;
