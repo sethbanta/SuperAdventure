@@ -128,6 +128,18 @@ namespace logic
             Inventory.Add(new InventoryItem(itemToAdd, 1));
         }
 
+        public void RemoveItemFromInventory(Item itemToRemove)
+        {
+            foreach(InventoryItem ii in Inventory)
+            {
+                if(ii.Details.ID == itemToRemove.ID)
+                {
+                    ii.Quantity--;
+                    break;
+                }
+            }
+        }
+
         public void MarkQuestCompleted(Quest quest)
         {
             foreach(PlayerQuest pq in Quests)
