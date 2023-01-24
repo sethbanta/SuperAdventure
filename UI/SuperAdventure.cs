@@ -120,7 +120,7 @@ namespace UI
                 {
                     rtbMessages.Text += "You receive the " + newLocation.QuestAvailableHere.Name + " quest" + Environment.NewLine;
                     rtbMessages.Text += "Rewards Experience: " + newLocation.QuestAvailableHere.RewardExperiencePoints + " Gold: " + newLocation.QuestAvailableHere.RewardGold
-                        + " Item: " + newLocation.QuestAvailableHere.RewardItem + Environment.NewLine;
+                        + " Item: " + newLocation.QuestAvailableHere.RewardItem.Name.ToString() + Environment.NewLine;
                     rtbMessages.Text += "To complete, return with: " + Environment.NewLine;
                     foreach (QuestCompletionItem qci in newLocation.QuestAvailableHere.QuestCompletionItems)
                     {
