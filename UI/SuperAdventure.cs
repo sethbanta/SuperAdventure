@@ -61,7 +61,7 @@ namespace UI
             if (!_player.HasRequiredItemToEnterThisLocation(newLocation))
             {
                 //Didn't find the correct item
-                rtbMessages.Text += "You must have a " + newLocation.ItemRequiredToEnter + " to enter this location." + Environment.NewLine;
+                rtbMessages.Text += "You must have a " + newLocation.ItemRequiredToEnter.Name.ToString() + " to enter this location." + Environment.NewLine;
                 return;
             }
 
