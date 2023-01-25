@@ -124,6 +124,8 @@ namespace UI
                             _player.Gold += newLocation.QuestAvailableHere.RewardGold;
                             _player.AddItemToInventory(newLocation.QuestAvailableHere.RewardItem);
                             _player.MarkQuestCompleted(newLocation.QuestAvailableHere);
+                            _player.GetPlayerLevel(_player.ExperiencePoints);
+
                         }
                     }
                 }
@@ -311,6 +313,7 @@ namespace UI
                 //give rewards
                 rtbMessages.Text += "You receive " + _currentMonster.RewardExperiencePoints.ToString() + " experience points." + Environment.NewLine;
                 _player.ExperiencePoints += _currentMonster.RewardExperiencePoints;
+                _player.GetPlayerLevel(_player.ExperiencePoints);
                 rtbMessages.Text += "You receive " + _currentMonster.RewardGold.ToString() + " gold." + Environment.NewLine;
                 _player.Gold += _currentMonster.RewardGold;
 

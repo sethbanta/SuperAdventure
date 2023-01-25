@@ -215,18 +215,23 @@ namespace logic
         {
             if (experiencePoints < 25)
             {
+                this.Level = 1;
                 return 1;
             } else if (experiencePoints < 50)
             {
+                this.Level = 2;
                 return 2;
             } else if (experiencePoints < 75)
             {
+                this.Level = 3;
                 return 3;
             } else if (experiencePoints < 100)
             {
+                this.Level = 4;
                 return 4;
             }
             //if code reaches here they are > 100 xp so they are max level
+            this.Level = 5;
             return 5;
         }
 
