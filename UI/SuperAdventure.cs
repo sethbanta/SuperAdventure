@@ -121,7 +121,9 @@ namespace UI
                             rtbMessages.Text += Environment.NewLine;
                             //give rewards
                             _player.ExperiencePoints += newLocation.QuestAvailableHere.RewardExperiencePoints;
+                            lblExperience.Text = _player.ExperiencePoints.ToString();
                             _player.Gold += newLocation.QuestAvailableHere.RewardGold;
+                            lblGold.Text = _player.Gold.ToString();
                             _player.AddItemToInventory(newLocation.QuestAvailableHere.RewardItem);
                             _player.MarkQuestCompleted(newLocation.QuestAvailableHere);
                             _player.GetPlayerLevel(_player.ExperiencePoints);
