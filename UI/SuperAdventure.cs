@@ -115,8 +115,8 @@ namespace UI
                             _player.RemoveQuestCompletionItems(newLocation.QuestAvailableHere);
                             //display rewards
                             rtbMessages.Text += "You receive " + Environment.NewLine;
-                            rtbMessages.Text += newLocation.QuestAvailableHere.RewardExperiencePoints.ToString() + Environment.NewLine;
-                            rtbMessages.Text += newLocation.QuestAvailableHere.RewardGold.ToString() + Environment.NewLine;
+                            rtbMessages.Text += newLocation.QuestAvailableHere.RewardExperiencePoints.ToString() + " experience" + Environment.NewLine;
+                            rtbMessages.Text += newLocation.QuestAvailableHere.RewardGold.ToString() + " gold" + Environment.NewLine;
                             rtbMessages.Text += newLocation.QuestAvailableHere.RewardItem.Name.ToString() + Environment.NewLine;
                             rtbMessages.Text += Environment.NewLine;
                             //give rewards
